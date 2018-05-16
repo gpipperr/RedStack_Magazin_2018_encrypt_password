@@ -1,6 +1,6 @@
 # !/bin/sh
 #==============================================================================
-# Author: Gunther PippÃ¨rr ( http://www.pipperr.de )
+# Author: Gunther Pippèrr ( http://www.pipperr.de )
 # Desc:   Example for a script to call sql*plus in the Linux bash shell
 # Date:   March 2018
 # Site:   https://www.pipperr.de/dokuwiki/doku.php?id=prog:apex_export_source_code_and_git

@@ -1,4 +1,5 @@
-Wo hin nur mit den Passwörtern in Windows und Linux Skripten? - Passwörter in Skripten verschlüsselt hinterlegen
+#Wo hin nur mit den Passwörtern in Windows und Linux Skripten? - Passwörter in Skripten verschlüsselt hinterlegen
+
 Autor: Gunther Pippèrr, Freiberufler
 
 Das Problem: In vielen Skripten rund um die tägliche Wartung unserer Systemumgebungen müssen Passwörter hinterlegt werden. Und nicht immer kann mit der Oracle Wallet oder SSL Zertifikaten bzw. Betriebssystem Rechten ganz auf Passwörter verzichtet werden.
@@ -11,22 +12,22 @@ Diese Passwörter stellen trotz aller Bemühung auch heute noch eines der höchs
 
 
 Um dieses Risiko zu bekämpfen, sollten die folgenden Vorgaben für alle Umgebungen gültig sein:
-•	Kein Passwort kommt im Skript vor, nur eine Variable wird verwendet, die mit dem Passwort gefüllt wird.
-•	Bei einer Passwort-Änderung muss das Skript nicht angepasst werden.
-•	Die Passwörter sind auf dem System verschlüsselt hinterlegt.
-•	Die verschlüsselten Passwörter können nur auf der Zielmaschine entschlüsselt gelesen werden.
-•	Alles was für die Umsetzung des Konzepts benötigt wird, muss auch in veralteten, bzw. gehosteten Umgebungen ohne große Systemrechte möglich sein.
+* Kein Passwort kommt im Skript vor, nur eine Variable wird verwendet, die mit dem Passwort gefüllt wird.
+* Bei einer Passwort-Änderung muss das Skript nicht angepasst werden.
+* Die Passwörter sind auf dem System verschlüsselt hinterlegt.
+* Die verschlüsselten Passwörter können nur auf der Zielmaschine entschlüsselt gelesen werden.
+* Alles was für die Umsetzung des Konzepts benötigt wird, muss auch in veralteten, bzw. gehosteten Umgebungen ohne große Systemrechte möglich sein.
 
 Und nebenbei werden so ohne großen Aufwand meist schon die wichtigsten Sicherheits-Regeln eingehalten, ohne den Betrieb mit zu großen Aufwänden zu belasten.
 
 Vor welchen Szenarien schützt uns die Umsetzung des Konzepts?
-•	Skripte können nun problemlos per Mail / Git oder Web verteilt werden, keine Passwörter gehen aus Versehen verloren.
-•	Die verschlüsselten Passwörter sind keinem vom Nutzen, der keinen Zugriff auf dem Ziel Server hat.
-•	Der Security Officer nervt uns nicht mehr in der Kantine beim Mittagessen.
+* Skripte können nun problemlos per Mail / Git oder Web verteilt werden, keine Passwörter gehen aus Versehen verloren.
+* Die verschlüsselten Passwörter sind keinem vom Nutzen, der keinen Zugriff auf dem Ziel Server hat.
+* Der Security Officer nervt uns nicht mehr in der Kantine beim Mittagessen.
 
 Vor welchen Szenarien schützt uns das NICHT?
-•	Vor den neugierigen Blicken der Kollegen mit Root Zugriff auf das System! Während das Skript läuft, ist im Speicher oder der /proc Umgebung das Passwort meist mit etwas Geschick auffindbar.
-•	Das Passwort lässt sich auf der Maschine per Skript auslesen, der Schlüssel für das Passwort lässt sich dort aber nie so verstecken, dass keiner den Schlüssel findet, das Skript benötigt diesen ja auch.
+* Vor den neugierigen Blicken der Kollegen mit Root Zugriff auf das System! Während das Skript läuft, ist im Speicher oder der /proc Umgebung das Passwort meist mit etwas Geschick auffindbar.
+* Das Passwort lässt sich auf der Maschine per Skript auslesen, der Schlüssel für das Passwort lässt sich dort aber nie so verstecken, dass keiner den Schlüssel findet, das Skript benötigt diesen ja auch.
 
 Denn wie bei jeder Verschlüsselung ist es eigentlich egal wie komplex oder sicher der Algorithmus ist, meist kann durch ein wenig Nachdenken und ausprobieren der Schlüssel im System selber gefunden werden. Den Schlüssel zu verstecken gelingt den wenigsten wirklich, denken wir nur an unsere Eltern, da liegt der Schlüssel auch immer hinten am Gartenzaun unter dem Blumentopf.
 
@@ -38,9 +39,9 @@ Wie lässt sich das ganze nun aber unter Windows und Linux so bequem wie möglic
 
 Unser Werkzeugkasten:
 
-•	Das Microsoft Credential Objects in der Windows PowerShell
-•	Verschlüsseltes Hinterlegen von Passwörtern auf Linux Systemen mit openssl
-•	Oracle Featuren wie der Oracle Wallet
+* Das Microsoft Credential Objects in der Windows PowerShell
+* Verschlüsseltes Hinterlegen von Passwörtern auf Linux Systemen mit openssl
+* Oracle Featuren wie der Oracle Wallet
 
 Und nun zuerst die ideale Lösung für das Problem, wir verwenden gar keine Passwörter mehr.  D.h. in der Regel delegieren wir diese Aufgabe einfach an das Betriebssystem der Datenbank und überlassen diesem, bzw. dem Systemadministrator der Umgebung, die ganze Verantwortung, dass alles sicher betrieben wird.
 
@@ -59,14 +60,13 @@ Unter Windows ist das verschlüsselte Hinterlegen der Passwörter so trivial, da
 Das Erstellen eines Passwort-Containers inkl. des Aufrufes der Pflegeoberfläche sind im Prinzip nur 2 Zeilen Code.
 
  
-Abbildung 1: Der Password Dialog vom „get-Credential“ .
 
 Wer lieber das Password über die Console setzt, kann mit dem Registry Eintrag  (HKLM:\SOFTWARE\Microsoft\PowerShell\1\ShellIds\ConsolePrompting) =$True den graphischen Dialog vermeiden.
 
  
-Abbildung 2: Der Password Dialog vom „get-Credential“ in der Konsole. 
 
 Sourcecode:
+```powershell
 # Parameter belegen
 $db_user     = "system"
 $oracle_credential = "ORACLE_CREDENTIAL.xml"
@@ -85,9 +85,11 @@ else {
    # Objekt wieder einlesen 
    $user_credential=Import-Clixml -Path $oracle_credential
 }
- 
+
 #Password als text wieder auslesen 
 $db_password=$user_credential.GetNetworkCredential().Password
+```
+
 
 Ein praktisches Beispiel dazu: ⇒ Oracle Apex Source Code automatisch exportieren und einchecken mit Git unter Windows mit der PowerShell [siehe Link 2].
 
@@ -104,7 +106,7 @@ Beim nächsten Lauf ist das Passwort bereits hinterlegt, und das Objekt wird wie
 Nun kann das Passwort im Script in Klarschrift ausgelesen werden über „$db_password=$user_credential.GetNetworkCredential().Password“
 
 
-Passwörter unter Linux sicher verwahren
+##Passwörter unter Linux sicher verwahren
 
 Unter Linux wird das ganze etwas schwieriger. Gerade in gehosteten Umgebungen muss der Kunde mit dem Vorlieb nehmen, was der Dienstleister unter Sicherheit versteht. Das heißt meistens rein kosten optimiert zu arbeiten und wenig flexibel auf besondere Softwarewünsche wie ein aktuelles Java oder einen gcc einzugehen.
 
@@ -116,16 +118,16 @@ Jetzt müssen wir nur noch einen Schlüssel finden, der möglichst länger ist a
 
 Der Schlüssel muss erfüllen:
 
-•	Muss auf jeden Server dieser Welt eindeutig sein.
-•	Länger als das Passwort sein. 
-•	Sollte sich nicht auf den ersten Blick erkennen lassen.
-•	Einfaches erzeugen/auslesen unter Linux.
+* Muss auf jeden Server dieser Welt eindeutig sein.
+* Länger als das Passwort sein. 
+* Sollte sich nicht auf den ersten Blick erkennen lassen.
+* Einfaches erzeugen/auslesen unter Linux.
 
 Solche Schlüssel können sein:
 
-•	WWN oder UUID eines Devices, dass sich auf dem Server nicht so schnell ändert.
-•	Hardware ID wie die MAC Adresse oder die Prozessor ID.
-•	Eine eigene Routine in c die eine eindeutige ID erzeugt.
+* WWN oder UUID eines Devices, dass sich auf dem Server nicht so schnell ändert.
+* Hardware ID wie die MAC Adresse oder die Prozessor ID.
+* Eine eigene Routine in c die eine eindeutige ID erzeugt.
 
 Meist verwende ich einfach die UUID von /dev/sda1 als Schlüssel oder die Seriennummer des OS unter HP UX. 
 
@@ -140,6 +142,7 @@ zu verschlüsselt und stellt den kompliziertesten Teil des Ganzen dar. Über fol
 
 Sourcecode:
 
+```bash
 # password.conf.des3
 PWDFILE=.password.conf
 export PWDFILE
@@ -192,8 +195,10 @@ export DB_PWD=“DU_SOLLSTE_DAS_NICHT_LESEN“
 
 echo "Info --  read encrypted password  =>> ${INTERNAL_PWD} <<=="
 
+```
 
-Über das Auslesen von Umgebung-Variablen in Linux - das environ Problem
+
+# Über das Auslesen von Umgebung-Variablen in Linux - das environ Problem
 
 Über /proc die Laufzeit Umgebung eines Linux Prozesses auslesen
 
@@ -202,15 +207,14 @@ Mit entsprechenden Rechten (denken sie dabei an ihren Kollegen oder Ihren Dienst
 Über diesen Weg lässt auch sich sehr einfach überprüfen welche Umgebungs-Variablen ein Prozess (wie zum Beispiel ein Oracle Hintergrund) wirklich sieht und verwendet.
 
 Anwendungsbeispiel:  
-•	Prozess ID ermitteln mit  „ps uafx | grep sqlplus”
-•	In das Proc File System wechseln „cd /proc/<processid>/“ 
-•	Über die Datei „environ“ kann nun die Umgebung des des Prozess ausgelesen werden „strings environ | grep NLS_LANG“ 
-
+* Prozess ID ermitteln mit  „ps uafx | grep sqlplus”
+* In das Proc File System wechseln „cd /proc/<processid>/“ 
+* Über die Datei „environ“ kann nun die Umgebung des des Prozess ausgelesen werden „strings environ | grep NLS_LANG“ 
 
 
 Um die Sicherheit noch weiter zu erhöhen und um Spuren in der Umgebung so weit wie möglich zu verschleiern, kann das Passwort in der Datei beim Verschlüsseln zuvor noch mit einem symmetrischen Algorithmus so verschlüsselt werden, dass erst zur Laufzeit im Skript an den jeweiligen Stellen das echte Passwort daraus extrahiert daraus wird. Diese sollte dann ohne Umwege in das aufzurufende Programm hinein „gepipt“ wird. Dies ist zwar nicht groß sicherer, dient aber dazu auf den ersten Blick den Angreifer etwas mehr zu verwirren.  
 
-Fazit.
+# Fazit.
 
 Auch mit diesem Konzept lässt sich in unserer Welt keine letztendliche Sicherheit herstellen. Es ist aber ein wichtiger Schritt sensitiver und vor allen Proaktiv mit dem Passwort Problem umzugehen.
 
