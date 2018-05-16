@@ -53,7 +53,7 @@ Etwas sicherer ist es „External authentification“ für die Datenbank Zugäng
 
 Sehr komfortabel ist die Oracle Wallet als Secure External Passwort Store Lösung, mehr dazu unter https://www.pipperr.de/dokuwiki/doku.php?id=dba:passwort_schuetzen.
 
-Passwörter unter Windows schützen
+## Passwörter unter Windows schützen
 
 Unter Windows ist das verschlüsselte Hinterlegen der Passwörter so trivial, dass jeder der es nicht nützt, sich eigentlich fast grob fahrlässig verhält.
 
