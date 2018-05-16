@@ -106,7 +106,7 @@ Beim nächsten Lauf ist das Passwort bereits hinterlegt, und das Objekt wird wie
 Nun kann das Passwort im Script in Klarschrift ausgelesen werden über „$db_password=$user_credential.GetNetworkCredential().Password“
 
 
-##Passwörter unter Linux sicher verwahren
+## Passwörter unter Linux sicher verwahren
 
 Unter Linux wird das ganze etwas schwieriger. Gerade in gehosteten Umgebungen muss der Kunde mit dem Vorlieb nehmen, was der Dienstleister unter Sicherheit versteht. Das heißt meistens rein kosten optimiert zu arbeiten und wenig flexibel auf besondere Softwarewünsche wie ein aktuelles Java oder einen gcc einzugehen.
 
@@ -198,7 +198,7 @@ echo "Info --  read encrypted password  =>> ${INTERNAL_PWD} <<=="
 ```
 
 
-# Über das Auslesen von Umgebung-Variablen in Linux - das environ Problem
+## Über das Auslesen von Umgebung-Variablen in Linux - das environ Problem
 
 Über /proc die Laufzeit Umgebung eines Linux Prozesses auslesen
 
@@ -214,7 +214,7 @@ Anwendungsbeispiel:
 
 Um die Sicherheit noch weiter zu erhöhen und um Spuren in der Umgebung so weit wie möglich zu verschleiern, kann das Passwort in der Datei beim Verschlüsseln zuvor noch mit einem symmetrischen Algorithmus so verschlüsselt werden, dass erst zur Laufzeit im Skript an den jeweiligen Stellen das echte Passwort daraus extrahiert daraus wird. Diese sollte dann ohne Umwege in das aufzurufende Programm hinein „gepipt“ wird. Dies ist zwar nicht groß sicherer, dient aber dazu auf den ersten Blick den Angreifer etwas mehr zu verwirren.  
 
-# Fazit.
+## Fazit.
 
 Auch mit diesem Konzept lässt sich in unserer Welt keine letztendliche Sicherheit herstellen. Es ist aber ein wichtiger Schritt sensitiver und vor allen Proaktiv mit dem Passwort Problem umzugehen.
 
