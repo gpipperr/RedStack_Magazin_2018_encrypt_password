@@ -1,4 +1,4 @@
-#Wo hin nur mit den Passwörtern in Windows und Linux Skripten? - Passwörter in Skripten verschlüsselt hinterlegen
+# Wo hin nur mit den Passwörtern in Windows und Linux Skripten? - Passwörter in Skripten verschlüsselt hinterlegen
 
 Autor: Gunther Pippèrr, Freiberufler
 
@@ -51,7 +51,7 @@ Sehr einfach lässt sich das Umsetzen wenn der OS User in der DBA Gruppe ist und
 
 Etwas sicherer ist es „External authentification“ für die Datenbank Zugänge einzusetzen. 
 
-Sehr komfortabel ist die Oracle Wallet als Secure External Passwort Store Lösung, mehr dazu unter [1].
+Sehr komfortabel ist die Oracle Wallet als Secure External Passwort Store Lösung, mehr dazu unter https://www.pipperr.de/dokuwiki/doku.php?id=dba:passwort_schuetzen.
 
 Passwörter unter Windows schützen
 
@@ -91,9 +91,9 @@ $db_password=$user_credential.GetNetworkCredential().Password
 ```
 
 
-Ein praktisches Beispiel dazu: ⇒ Oracle Apex Source Code automatisch exportieren und einchecken mit Git unter Windows mit der PowerShell [siehe Link 2].
+Ein praktisches Beispiel dazu: ⇒ Oracle Apex Source Code automatisch exportieren und einchecken mit Git unter Windows mit der PowerShell => https://www.pipperr.de/dokuwiki/doku.php?id=prog:apex_export_source_code_and_git .
 
-Wie funktioniert das Ganze im Detail?
+### Wie funktioniert das Ganze im Detail?
 
 Das Passwort wird über den originalen Windows Passwort Dialog einmalig über den Aufruf von „GET-CREDENTIAL" eingeben und in einer serialisierten Form als XML Datei auf der Festplatte hinterlegt.
 

@@ -5,7 +5,7 @@
 * For the MS Windows Powershell see ms_powershell
 * For linux see linux_powershell
 
-#Main Idea:
+# Main Idea:
 
 This is not a 100% bullet prof high tech password protection system, this is only the simple idea not to use password in scripts.
 
@@ -22,6 +22,6 @@ If the hacker is able to start the script on the target server he can read also 
 But this is the most general problem of all encryptions, it is very difficultly to protect the key if the key is part of the software.
 
 Therefore we using some unique key from the target server for the salt of the encryption, 
-for MS Windows the build in Software key , on Linux some thing from the operation system.
+for MS Windows the build in Software key , on Linux something from the operation system.
 
 If the script with the encrypted password is executed on an other server the password can not be read!
